@@ -2,6 +2,7 @@ LHOST = 127.0.0.1
 LPORT = 4444
 RMODE = 0o0777
 
+# Output filename can be specified as a command line argument, this is a default value
 # needs to be escaped for our glorious templating engine sed(1)
 RFILE = \/tmp\/file
 

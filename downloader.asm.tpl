@@ -10,24 +10,14 @@ exit:
 	mov ebx, [ebp+8]
 	int 0x80
 
-creat: 
-	push ebp
-	mov ebp, esp
-	;
 
-	;
-	mov esp, ebp
-	pop ebp
-	ret
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 ; read write loop that copies data from one file descriptor to other
 ; args:
 ;    stack top
 ;   - input fd
 ; 	- output fd
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 rw_loop:
 	push ebp
 	mov ebp, esp
@@ -57,9 +47,22 @@ end:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _start:
+	; check if argv>1
+	pop eax
+	cmp eax, 1
+	jg custom_path
+
+	mov ebx, open_loc
+	jmp create_outfile
+
+custom_path:
+	pop ebx ; argv[0]
+	pop ebx ; argv[1]
+
+
+create_outfile:
 	; create and open a destination file
 	mov eax, 0x08     ; creat(2)
-	mov ebx, open_loc ; file name
 	mov ecx, ^RMODE^  ; mode filled from makefile
 	int 0x80
 	mov edi, eax      ; 
